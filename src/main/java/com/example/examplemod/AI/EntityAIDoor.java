@@ -43,7 +43,7 @@ public class EntityAIDoor extends EntityAIMoveToBlock {
 
         if (block instanceof BlockDoor && iblockstate.getValue(HALF) == BlockDoor.EnumDoorHalf.LOWER) {
 
-            if(!zombie.main.contains(pos) && !this.zombie.getVillagerInventory().isEmpty()){
+            if(!zombie.main.contains(pos)){
                 return true;
             }
         }
@@ -98,12 +98,14 @@ public class EntityAIDoor extends EntityAIMoveToBlock {
      * должна ли EntityAIBase начать выполнение.
      */
     public boolean shouldExecute() {
-        return searchForDestination() && (!this.zombie.getVillagerInventory().isEmpty());
+        System.out.println(searchForDestination() + " " +(!this.zombie.getVillagerInventory().isEmpty())  + " " + (zombie.counterBrokenBlocks > 13) + " " + zombie.main.size() );
+        return searchForDestination() && (!this.zombie.getVillagerInventory().isEmpty()) && zombie.counterBrokenBlocks > 13;
     }
 
 
     private boolean searchForDestination()
     {
+        zombie.setCustomNameTag("EntityDoor");
         //TODO зафиксируй в переменной значение
         int i = 64;
         int j = 1;
@@ -128,7 +130,6 @@ public class EntityAIDoor extends EntityAIMoveToBlock {
                 }
             }
         }
-
         zombie.main.clear();
 
         return false;

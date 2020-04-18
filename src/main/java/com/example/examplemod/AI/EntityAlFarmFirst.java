@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 public class EntityAlFarmFirst extends EntityAIMoveToBlock {
 
@@ -33,7 +34,7 @@ public class EntityAlFarmFirst extends EntityAIMoveToBlock {
             block = iblockstate.getBlock(); //получаем тип блока над землей
 
             //Если блок собираемый и у него максимальный возраст достигнут
-            if (block instanceof BlockCrops && ((BlockCrops) block).isMaxAge(iblockstate)) {
+            if (block.getClass() == BlockCrops.class && ((BlockCrops) block).isMaxAge(iblockstate)) {
                 return true;
             }
         }
@@ -68,10 +69,14 @@ public class EntityAlFarmFirst extends EntityAIMoveToBlock {
      * должна ли EntityAIBase начать выполнение.
      */
     public boolean shouldExecute() {
-        if(searchForDestination()){
-            if(zombie.counterBrokenBlocks > 1){
-                return false;
+
+        if(zombie.counterBrokenBlocks > 13){
+            if(this.zombie.getVillagerInventory().isEmpty()){
+                zombie.counterBrokenBlocks = 0;
             }
+        }
+
+        if(searchForDestination()){
             return true;
         }
         return false;
@@ -79,6 +84,7 @@ public class EntityAlFarmFirst extends EntityAIMoveToBlock {
 
     private boolean searchForDestination()
     {
+        zombie.setCustomNameTag("EntityAIFarmfirst");
         //TODO зафиксируй в переменной значение
         int i = 64;
         int j = 1;
@@ -96,6 +102,7 @@ public class EntityAlFarmFirst extends EntityAIMoveToBlock {
 
                         if (this.zombie.isWithinHomeDistanceFromPosition(blockpos1) && this.shouldMoveTo(this.zombie.world, blockpos1))
                         {
+
                             this.destinationBlock = blockpos1;
                             return true;
                         }

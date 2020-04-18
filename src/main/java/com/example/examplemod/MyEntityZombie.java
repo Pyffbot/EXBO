@@ -45,8 +45,8 @@ public class MyEntityZombie extends EntityZombie {
         this.tasks.addTask(1, new EntityAIMoveIndoors(this));
         this.tasks.addTask(2, new EntityAIRestrictOpenDoor(this));
         this.tasks.addTask(2, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(3, new EntityAlFarmFirst(this));
-        this.tasks.addTask(4, new EntityAIDoor(this));
+        this.tasks.addTask(4, new EntityAlFarmFirst(this));
+        this.tasks.addTask(3, new EntityAIDoor(this));
     }
 
     public void onLivingUpdate()
@@ -89,12 +89,12 @@ public class MyEntityZombie extends EntityZombie {
 
     private boolean canVillagerPickupItem(Item itemIn)
     {
-        return itemIn == Items.BREAD || itemIn == Items.POTATO || itemIn == Items.CARROT || itemIn == Items.WHEAT || itemIn == Items.WHEAT_SEEDS || itemIn == Items.BEETROOT || itemIn == Items.BEETROOT_SEEDS;
+        return itemIn == Items.WHEAT || itemIn == Items.WHEAT_SEEDS ;
     }
 
     public boolean canPickUpLoot()
     {
-        if(counterBrokenBlocks > 1){
+        if(counterBrokenBlocks >= 13){
             return false;
         }
         return true;
@@ -110,7 +110,7 @@ public class MyEntityZombie extends EntityZombie {
         {
             ItemStack itemstack = this.inventory.getStackInSlot(i);
 
-            if (!itemstack.isEmpty() && (itemstack.getItem() == Items.WHEAT_SEEDS || itemstack.getItem() == Items.POTATO || itemstack.getItem() == Items.CARROT || itemstack.getItem() == Items.BEETROOT_SEEDS))
+            if (!itemstack.isEmpty() && (itemstack.getItem() == Items.WHEAT_SEEDS))
             {
                 return true;
             }
