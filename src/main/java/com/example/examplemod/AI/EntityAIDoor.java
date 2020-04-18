@@ -74,7 +74,7 @@ public class EntityAIDoor extends EntityAIMoveToBlock {
                         if (!(itemstack.getItem() == Items.AIR))
                         {
                             zombie.zombiDropItem(itemstack.getItem(), 0 , blockpos);
-                            System.out.println(itemstack.getItem().getUnlocalizedName() + " slot = : " + i + "  " + itemstack.getCount());
+
 
                             itemstack.shrink(1);
 
@@ -98,14 +98,12 @@ public class EntityAIDoor extends EntityAIMoveToBlock {
      * должна ли EntityAIBase начать выполнение.
      */
     public boolean shouldExecute() {
-        System.out.println(searchForDestination() + " " +(!this.zombie.getVillagerInventory().isEmpty())  + " " + (zombie.counterBrokenBlocks > 13) + " " + zombie.main.size() );
         return searchForDestination() && (!this.zombie.getVillagerInventory().isEmpty()) && zombie.counterBrokenBlocks > 13;
     }
 
 
     private boolean searchForDestination()
     {
-        zombie.setCustomNameTag("EntityDoor");
         //TODO зафиксируй в переменной значение
         int i = 64;
         int j = 1;

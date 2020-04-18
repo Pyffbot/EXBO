@@ -84,7 +84,6 @@ public class EntityAlFarmFirst extends EntityAIMoveToBlock {
 
     private boolean searchForDestination()
     {
-        zombie.setCustomNameTag("EntityAIFarmfirst");
         //TODO зафиксируй в переменной значение
         int i = 64;
         int j = 1;
